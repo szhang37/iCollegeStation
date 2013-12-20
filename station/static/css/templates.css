@@ -4,12 +4,23 @@ body {
 }
 .starter-template {
   padding: 40px 15px;
-  text-align: center;
+  text-align: left;
 }
 
 .container-template {
-  padding: 5px 20px;
+  padding: 35px 40px;
   text-align: left;
+}
+hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+  border-style: solid none;
+  border-width: 1px 0;
+  margin: 18px 0;
 }
 
 .search-template {

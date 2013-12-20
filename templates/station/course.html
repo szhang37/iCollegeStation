@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ICOLLEGE STATION</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/templates.css" %}" rel="stylesheet">
+    <link href="http://static.gettingstartedwithdjango.com/css/gswd.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iCollegeStation</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../">Home</a></li>
+            <li class="active"><a href="../courses">Courses</a></li>
+            <li><a href="../school">School</a></li>
+            <li><a href="../category">Category</a></li>
+            <li><a href="../about">About</a></li>
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="search-template">
+    <div class = "row">
+	<div class="col-md-6 col-md-offset-3">  
+	
+	{% if not course %}
+	<div class="alert alert-danger">Sorry, The course is currently unavailable...</div>
+	{% endif %}
+	 
+	{% for c in course %}
+	
+	<table class="table" align="center">
+	<tr><td colspan="2"><h2>{{ c.title }}</h2></td></tr>
+	<tr><td colspan="2"><img  class="img-rounded" src="{{ c.imglink }}" alt="{{ c.title }}" height="150" width="250"></td>
+	</tr>
+	<tr class="success"><td>Subtitle</td><td>{{ c.subtitle }}</td>
+	</tr>
+	<tr class="warning">
+	<td>Source</td>
+	<td>{{ c.site.sitename}}</td>
+	</tr>
+	 {% if c.cat %}
+      <tr class="success">
+	  <td>Category</td><td>{{ c.cat.catname}}</td>
+      </tr>
+      {% endif %}
+      {% if c.s %}
+      <tr class="active"><td>Institute</td><td> {{ c.s.schoolname}}</tr>
+      {% endif %}
+      {% if not c.startdate %}
+	  <tr class="success"><td>Start Date</td><td> N/A</tr>
+      {% endif %}
+      
+      {% if c.startdate %}
+	  <tr class="success"><td>Start Date</td><td> {{ c.startdate}}</tr>
+      {% endif %}
+      
+      {% if c.intro %}
+	  <tr class="danger"><td>Introduction</td><td> {{ c.intro}}</tr>
+      {% endif %}
+      <tr ><td colspan="2"><a class="btn btn-info btn-lg" role="button" href="{{ c.courselink }}">Enter</a></td></tr>
+    </table>
+	</div>
+  
+    </div>
+    <br/>
+    
+    </div><!-- /.container -->
+       <div class = "row">
+	<div class="col-md-6 col-md-offset-3">  
+   <div class="panel panel-info">
+  <div class="panel-heading">Comments</div>
+  <div class="panel-body">
+  {% if comments %}
+  <div class="list-group">
+  {% for com in comments %}
+  
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">{{ com.name }} said:</h4>
+    <p class="list-group-item-text">{{ com.content }} at {{com.pub_date}}</p>
+  </a>
+  {% endfor %}
+  </div>
+  {% endif %}
+  <form method ="POST" action="?cid={{ c.c_id }}"> {% csrf_token %} 
+	<div class="input-group">
+	 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+ 	 <input name ="name" type="text" class="form-control" placeholder="your name...">
+  	<span class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></span>
+ 	 <input name ="content" type="text" class="form-control" placeholder="write a comment...">
+ 	 <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Say it!</button>
+      </span>
+	</div></form>{% endfor %}
+	</div>
+	</div>
+   </div>
+   </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js"%}"></script>
+  </body>
+</html>

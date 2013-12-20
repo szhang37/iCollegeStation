@@ -14,7 +14,7 @@
     <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
     <link href="{% static "css/templates.css" %}" rel="stylesheet">
     <link href="http://static.gettingstartedwithdjango.com/css/gswd.css" rel="stylesheet">
-
+    
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -26,7 +26,7 @@
   </head>
 
   <body>
-
+     
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -51,20 +51,36 @@
       </div>
     </div>
 
-    <div class="container-template">
+{% block content %}
+    <div class="search-template">
     <div class="row-fluid">
-    <h1 class="gswd">Courses</h1>
+    <h1 class="gswd">Schools</h1>
     </div><!-- /.container -->
+    {% for sc in schools %}  
+    
+    	<div class="row">
+    	{% for s1 in sc %}
+  			<div class="col-md-4">
+  				<a href="../courses?sid={{ s1.s_id }}">
+  				<img src="{{ s1.schoolimg }}" alt="{{ s1.schoolname }}"/>
+  			</div>
+		{% endfor %}
+		</div>
+	{% endfor %}
+		<div class="row">
+		
+		{% for s2 in lastsch %}  
+  			<div class="col-md-4"><img src="{{ s1.schoolimg }}"/></div>
+		</div>
+		{% endfor %}
+	
+
+	
    </div>
    
-   	<div class="search-template">
-    	 <form class="navbar-form form-search pull-left" action="/en/lessons/search/" method="GET">
-          	<div class="input-group">
-  				<span class="input-group-addon">Search</span>
-  					<input type="text" class="form-control" placeholder="Course you want to learn" length="30">
-			</div>
-          </form>   
-	</div>
+
+   {% endblock %}
+     
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

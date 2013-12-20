@@ -51,20 +51,42 @@
       </div>
     </div>
 
+    <
+{% block content %}
     <div class="container-template">
     <div class="row-fluid">
-    <h1 class="gswd">Courses</h1>
+    
     </div><!-- /.container -->
-   </div>
+	<div class = "row">
+		<div class="col-md-6  col-md-offset-3">       
+		<h1 class="gswd">Category</h1>		
+    		{% for let in letter %}
+   					{% for cats in alph %}
+   						
+      					{% if forloop.counter == forloop.parentloop.counter%}
+          				<div> {{ let }}</div>
+          				<hr>
+          				<ul class="nav nav-pills nav-primary">
+          				
+          				{% for cat in cats %}
+       					{% for ct in cnt %}
+       						{% if cat.cat_id == ct.cat_id %}	
+       						 <li><a href="../courses?catid={{cat.cat_id}}">{{ cat.catname }} <span class="badge active">{{ct.count}}</span></a></li>
+      						{% endif %}
+  			            {% endfor %}				
+  						{% endfor %}
+  						 </ul>
+      					{% endif %}
+   			
+			{% endfor %}
+    		{% endfor %}
+              		
+
+   		</div>
+   	</div>
+ </div>
+   {% endblock %}
    
-   	<div class="search-template">
-    	 <form class="navbar-form form-search pull-left" action="/en/lessons/search/" method="GET">
-          	<div class="input-group">
-  				<span class="input-group-addon">Search</span>
-  					<input type="text" class="form-control" placeholder="Course you want to learn" length="30">
-			</div>
-          </form>   
-	</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
